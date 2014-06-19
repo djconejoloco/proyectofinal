@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 
 
+
 import com.mysql.jdbc.Statement;
 
 
@@ -91,9 +92,26 @@ public class Trabajadores implements Serializable {
 			excepcionSql.printStackTrace();
 			
 		}
-	
+	}
+	public void leerTrabajador(){
+		try{
+			instruccion=(Statement) conexion.createStatement();
+			//la consulta en la base de datos
+			conjuntoresultados= instruccion.executeQuery("SELECT nombre ,password ,  numtrabajador FROM almacen LIMIT 1");
+			//coje el resultado y dame el siguiente
+			if(conjuntoresultados!=null){
+			conjuntoresultados.next();
+			//Almacenar en liga el nombre y numequipos
+			this.numtrabajador=(int)conjuntoresultados.getObject("numtrabajador");
+			this.Nombre=(String)conjuntoresultados.getObject("nombre");
+			this.password=(String)conjuntoresultados.getObject("password");
+			}
+		}catch(SQLException exceptionSql){
+			exceptionSql.printStackTrace();
+		}
+		
+	}
 	}
 	
 	
 	
-}

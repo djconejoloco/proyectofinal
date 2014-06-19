@@ -34,6 +34,7 @@ public class Principal extends JFrame {
 	private Ventanatrabajadores frametrabajador;
 	private JComboBox<Trabajadores> comboBox;
 	private ArrayList<Trabajadores> trabajador1 = new ArrayList<Trabajadores>();
+	 
 
 	// DB
 	Connection conexion = null;
@@ -79,9 +80,15 @@ public class Principal extends JFrame {
 		contentPane.setLayout(null);
 
 		comboBox = new JComboBox<Trabajadores>();
+		
 		// Como añadir Trabajadores
 		comboBox.addItem(new Trabajadores(conexion));
 		contentPane.add(comboBox);
+		
+		
+		//trabajador.leerTrabajador();
+		
+		
 
 		// Como saber que trabajador se ha seleccionado
 		Trabajadores elegido = (Trabajadores) comboBox.getItemAt(0);
