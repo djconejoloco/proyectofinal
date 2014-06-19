@@ -12,8 +12,12 @@ import java.awt.Font;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 import javax.swing.JTable;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.util.Date;
+import javax.swing.JFileChooser;
+
 
 
 public class Almacen extends JFrame {
@@ -24,6 +28,9 @@ public class Almacen extends JFrame {
 	private JTextField textField_2;
 	private JTextField textField_3;
 	private JTable table_1;
+	private JTextField textField_4;
+	private Trabajadores ventanatrabajador;
+	private Principal almacenprincipal;
 
 	/**
 	 * Launch the application.
@@ -40,29 +47,10 @@ public class Almacen extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setBounds(10, 114, 169, 20);
-		contentPane.add(comboBox);
-		
 		JLabel lblCliente = new JLabel("Cliente");
 		lblCliente.setFont(new Font("Trebuchet MS", Font.BOLD, 12));
 		lblCliente.setBounds(10, 89, 81, 14);
 		contentPane.add(lblCliente);
-		
-		JButton button = new JButton("+");
-		button.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-		VentanaClientes frame = new VentanaClientes();
-		frame.setVisible(true);
-			}
-			});
-		button.setBounds(203, 113, 89, 23);
-		contentPane.add(button);
-		
-		JLabel lblAadirCliente = new JLabel("A\u00F1adir cliente");
-		lblAadirCliente.setFont(new Font("Trebuchet MS", Font.BOLD, 12));
-		lblAadirCliente.setBounds(203, 88, 89, 14);
-		contentPane.add(lblAadirCliente);
 		
 		textField = new JTextField();
 		textField.setBounds(10, 190, 305, 75);
@@ -80,6 +68,7 @@ public class Almacen extends JFrame {
 		textField_1.setColumns(10);
 		
 		textField_2 = new JTextField();
+		textField_2.setText(new Date().toString());
 		textField_2.setBounds(124, 301, 86, 20);
 		contentPane.add(textField_2);
 		textField_2.setColumns(10);
@@ -103,6 +92,7 @@ public class Almacen extends JFrame {
 		textField_3.setBounds(10, 43, 169, 20);
 		contentPane.add(textField_3);
 		textField_3.setColumns(10);
+		//textField_2.setText(String.valueOf(almacenprincipal.));
 		
 		JLabel lblTrabajador = new JLabel("Trabajador");
 		lblTrabajador.setFont(new Font("Trebuchet MS", Font.BOLD, 12));
@@ -112,5 +102,31 @@ public class Almacen extends JFrame {
 		table_1 = new JTable();
 		table_1.setBounds(341, 19, 197, 249);
 		contentPane.add(table_1);
-	}
-}
+		
+		textField_4 = new JTextField();
+		textField_4.setBounds(10, 114, 273, 23);
+		contentPane.add(textField_4);
+		textField_4.setColumns(10);
+		
+		final JButton btnGuartarEnArchivo = new JButton("Guartar en archivo");
+		btnGuartarEnArchivo .setBounds(341, 300, 197, 23);
+		btnGuartarEnArchivo.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+			JFileChooser elegir = new JFileChooser();
+			int opcion = elegir.showOpenDialog(btnGuartarEnArchivo);
+			if (opcion == JFileChooser.APPROVE_OPTION) {
+				String pathArchivo = elegir.getSelectedFile().getPath();
+				// Obtiene path del archivo
+				String nombre = elegir.getSelectedFile().getName();
+				// obtiene nombre del archivo
+				int tamaño = (int) elegir.getSelectedFile().getUsableSpace();
+				String fich1= elegir.getSelectedFile().getParent();
+			textField_3.setText(nombre); 
+				}
+			}
+		});
+
+	
+		
+		contentPane.add(btnGuartarEnArchivo);
+	}}
