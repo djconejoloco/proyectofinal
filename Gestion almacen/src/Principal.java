@@ -30,11 +30,11 @@ public class Principal extends JFrame {
 	private JPanel contentPane;
 	private JPasswordField passwordField;
 	private Trabajadores trabajador;
-	private int numtrabajador;
+	private Base_datos bs;
+
 	private Ventanatrabajadores frametrabajador;
-	private JComboBox<Trabajadores> comboBox;
-	private ArrayList<Trabajadores> trabajador1 = new ArrayList<Trabajadores>();
-	 
+	JComboBox<Trabajadores> comboBox;
+	
 
 	// DB
 	Connection conexion = null;
@@ -43,7 +43,7 @@ public class Principal extends JFrame {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
-	
+
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -57,18 +57,19 @@ public class Principal extends JFrame {
 	}
 
 	public Principal() {
-		
+		// Objeto para acceder a base de datos
+
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			// establece conexion con msql
-			conexion = DriverManager.getConnection("jdbc:mysql://localhost/almacen", "root", "formula2962");
+			conexion = DriverManager.getConnection(
+					"jdbc:mysql://localhost/almacen", "root", "formula2962");
 		} catch (SQLException exceptionSql) {
 			exceptionSql.printStackTrace();
 
 		} catch (ClassNotFoundException noEncontroClase) {
 			noEncontroClase.printStackTrace();
 		}
-
 		
 
 		setBackground(Color.DARK_GRAY);
@@ -80,18 +81,17 @@ public class Principal extends JFrame {
 		contentPane.setLayout(null);
 
 		comboBox = new JComboBox<Trabajadores>();
+		Base_datos bs1 = new Base_datos(conexion);
+		this.comboBox.addItem(bs1.leerTrabajador.getString(""));
 		
+		//
+
 		// Como añadir Trabajadores
-		comboBox.addItem(new Trabajadores(conexion));
+		comboBox.addItem(new Trabajadores());
 		contentPane.add(comboBox);
-		
-		
-		//trabajador.leerTrabajador();
-		
-		
 
 		// Como saber que trabajador se ha seleccionado
-		Trabajadores elegido = (Trabajadores) comboBox.getItemAt(0);
+		//Trabajadores elegido = (Trabajadores) comboBox.getItemAt(0);
 		comboBox.setBounds(41, 67, 171, 20);
 		contentPane.add(comboBox);
 
@@ -104,10 +104,9 @@ public class Principal extends JFrame {
 		JButton buttonmas = new JButton("+");
 		buttonmas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//LLamamos al metodo de nuevo trabajador
+				// LLamamos al metodo de nuevo trabajador
 				newtrabajador();
 				opentrabajadorwindow();
-				
 
 			}
 		});
@@ -144,17 +143,21 @@ public class Principal extends JFrame {
 		contentPane.add(btnNewButton);
 	}
 
+
+
 	// definimos que es un nuevo trabajador
 	private void opentrabajadorwindow() {
-		frametrabajador = new Ventanatrabajadores(trabajador, comboBox );
+		frametrabajador = new Ventanatrabajadores(trabajador, this.comboBox,
+			bs	);
 		frametrabajador.setVisible(true);
 		frametrabajador.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
 	}
 
 	public void newtrabajador() {
-		trabajador = new Trabajadores(conexion);
+		trabajador = new Trabajadores();
+		 bs = new Base_datos(conexion);
 	}
-
 	
+
 }

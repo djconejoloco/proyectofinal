@@ -16,6 +16,7 @@ import java.awt.event.ActionListener;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+import java.sql.Connection;
 
 import javax.swing.JTextField;
 import javax.swing.JButton;
@@ -28,21 +29,29 @@ public class Ventanatrabajadores extends JFrame {
 
 	private JPanel contentPane;
 	private Trabajadores trabajador;
-	private JComboBox <Trabajadores>  trabajador2;
+	private JComboBox<Trabajadores> trabajador2;
 	private boolean modifica;
 	private JTextField textField;
 	private JTextField textField_1;
 	private JTextField textField_2;
-	private ObjectOutputStream salida;
-	   
+
+	private Base_datos bs;
+	  
 
 
 	/**
 	 * Create the frame.
 	 */
-	public Ventanatrabajadores(Trabajadores miTrabajador, JComboBox miComboBox) {
+	public Ventanatrabajadores(Trabajadores miTrabajador, JComboBox<Trabajadores> micombobox, Base_datos bsdatos) {
 		trabajador = miTrabajador;
-		trabajador2 = miComboBox;
+		this.bs= bsdatos;
+		trabajador2=micombobox;
+		
+		
+		
+		
+		
+		
 		
 		
 		
@@ -129,6 +138,7 @@ public class Ventanatrabajadores extends JFrame {
 
 
 
+
 	//metodo para guardar trabajador
 	public void  GuardarTrabajador(){
 		try{
@@ -137,7 +147,8 @@ public class Ventanatrabajadores extends JFrame {
 		
 		if(!modifica){
 			trabajador2.addItem(trabajador);
-			this.trabajador.guardarenBD();
+		
+			this.bs.guardarenBD();
 		}
 		else
 		{

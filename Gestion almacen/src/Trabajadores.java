@@ -13,22 +13,17 @@ import com.mysql.jdbc.Statement;
 
 
 public class Trabajadores implements Serializable {
-	private String Nombre;
-	private int numtrabajador;
-	private String password;
+	public String Nombre;
+	public int numtrabajador;
+	public String password;
 	private ArrayList<Trabajadores> trabajador1 = new ArrayList<Trabajadores>();
 	
 	
 	//bd
-		private Connection conexion=null;
-		Statement instruccion=null;
-		ResultSet conjuntoresultados=null;
-
-	
-	
 		
-		public Trabajadores(Connection conexion){
-			this.conexion=conexion;
+		
+		public Trabajadores(){
+			
 			Nombre="";
 			numtrabajador=0;
 			password="";
@@ -37,6 +32,7 @@ public class Trabajadores implements Serializable {
 		Nombre=nom;
 		numtrabajador=numtra;
 		password=pass;
+		
 		for (int i = 0; i < numtrabajador; i++);
 		
 
@@ -76,41 +72,7 @@ public class Trabajadores implements Serializable {
 		return trabajador1.get(posicion);
 	}
 
-	public void guardarenBD(){
-		try{
-			//consultar base de datos
-			Statement instruccion = (Statement) conexion.createStatement();
-			//insercion en base de datos
-			String sql_inst="INSERT INTO trabajadores (numtrabajador, nombre, password)";
-			sql_inst=sql_inst+ " VALUES("+this.numtrabajador+",'"+this.Nombre+"','"+this.password+"')";
-			
-			System.out.println(sql_inst);
-		 
-		  instruccion.executeUpdate(sql_inst);
-		  }
-		catch(SQLException excepcionSql){
-			excepcionSql.printStackTrace();
-			
-		}
-	}
-	public void leerTrabajador(){
-		try{
-			instruccion=(Statement) conexion.createStatement();
-			//la consulta en la base de datos
-			conjuntoresultados= instruccion.executeQuery("SELECT nombre ,password ,  numtrabajador FROM almacen LIMIT 1");
-			//coje el resultado y dame el siguiente
-			if(conjuntoresultados!=null){
-			conjuntoresultados.next();
-			//Almacenar en liga el nombre y numequipos
-			this.numtrabajador=(int)conjuntoresultados.getObject("numtrabajador");
-			this.Nombre=(String)conjuntoresultados.getObject("nombre");
-			this.password=(String)conjuntoresultados.getObject("password");
-			}
-		}catch(SQLException exceptionSql){
-			exceptionSql.printStackTrace();
-		}
-		
-	}
+	
 	}
 	
 	
