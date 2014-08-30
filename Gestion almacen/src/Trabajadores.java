@@ -1,79 +1,78 @@
 import java.io.Serializable;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
-
-
-
-
-
 import com.mysql.jdbc.Statement;
-
 
 public class Trabajadores implements Serializable {
 	public String Nombre;
 	public int numtrabajador;
 	public String password;
 	private ArrayList<Trabajadores> trabajador1 = new ArrayList<Trabajadores>();
-	
-	
-	//bd
-		
-		
-		public Trabajadores(){
-			
-			Nombre="";
-			numtrabajador=0;
-			password="";
-		}
-		public Trabajadores(String nom,int numtra,String pass){
-		Nombre=nom;
-		numtrabajador=numtra;
-		password=pass;
-		
-		for (int i = 0; i < numtrabajador; i++);
-		
+	private int id;
 
-		
-		
+	// bd
+
+	public Trabajadores() {
+
+		Nombre = "";
+		numtrabajador = 0;
+		password = "";
 	}
-	public void setNombre(String nom){
-		Nombre=nom;
-		
+
+	public Trabajadores(String nom, int numtra, String pass) {
+		id = 0;
+		Nombre = nom;
+		numtrabajador = numtra;
+		password = pass;
+
+		for (int i = 0; i < numtrabajador; i++)
+			;
+
 	}
-	
-	public String getNombre(){
+
+	public void setNombre(String nom) {
+		Nombre = nom;
+
+	}
+
+	public String getNombre() {
 		return Nombre;
 	}
-	
-	public void  setnumtrabajador(int numtra){
-		numtrabajador=numtra;
-		
+
+	public void setnumtrabajador(int numtra) {
+		numtrabajador = numtra;
+
 	}
-	public int getnumtrabajador(){
+
+	public int getnumtrabajador() {
 		return numtrabajador;
-		
+
 	}
-	
-	public void setpassword(String pass){
-		password=pass;
-		
+
+	public void setpassword(String pass) {
+		password = pass;
+
 	}
-	public String getpassword(){
+
+	public String getpassword() {
 		return password;
-		
+
 	}
-	public String toString(){
+
+	public String toString() {
 		return Nombre;
 	}
+
 	public Trabajadores gettrabajador(int posicion) {
 		return trabajador1.get(posicion);
 	}
 
-	
+	public void setId(int i) {
+		id = i;
 	}
-	
-	
-	
+
+	public int getId() {
+		return id;
+	}
+
+}

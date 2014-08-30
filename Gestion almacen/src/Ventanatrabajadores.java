@@ -20,6 +20,7 @@ import java.sql.Connection;
 
 import javax.swing.JTextField;
 import javax.swing.JButton;
+import java.awt.SystemColor;
 
 
 
@@ -45,7 +46,7 @@ public class Ventanatrabajadores extends JFrame {
 	public Ventanatrabajadores(Trabajadores miTrabajador, JComboBox<Trabajadores> micombobox, Base_datos bsdatos) {
 		trabajador = miTrabajador;
 		this.bs= bsdatos;
-		trabajador2=micombobox;
+		this.trabajador2=micombobox;
 		
 		
 		
@@ -58,6 +59,7 @@ public class Ventanatrabajadores extends JFrame {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
+		contentPane.setBackground(SystemColor.activeCaption);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
@@ -146,9 +148,10 @@ public class Ventanatrabajadores extends JFrame {
 		trabajador.setpassword(textField_1.getText());
 		
 		if(!modifica){
+			
 			trabajador2.addItem(trabajador);
-		
-			this.bs.guardarenBD();
+			this.bs.guardarenBD(trabajador);
+			
 		}
 		else
 		{

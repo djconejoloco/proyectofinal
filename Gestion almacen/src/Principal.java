@@ -4,6 +4,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
@@ -16,28 +17,29 @@ import java.awt.Font;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import javax.swing.JButton;
 import javax.swing.JPasswordField;
 
 import java.sql.SQLException;
+
 import com.mysql.jdbc.Statement;
 
 import java.sql.DriverManager;
+import java.awt.SystemColor;
 
 public class Principal extends JFrame {
 
 	private JPanel contentPane;
 	private JPasswordField passwordField;
 	private Trabajadores trabajador;
-	private Base_datos bs;
-
 	private Ventanatrabajadores frametrabajador;
 	JComboBox<Trabajadores> comboBox;
-	
 
 	// DB
 	Connection conexion = null;
+	Base_datos bs = new Base_datos(conexion);
 
 	/**
 	 * Launch the application.
@@ -57,7 +59,6 @@ public class Principal extends JFrame {
 	}
 
 	public Principal() {
-		// Objeto para acceder a base de datos
 
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
@@ -70,31 +71,27 @@ public class Principal extends JFrame {
 		} catch (ClassNotFoundException noEncontroClase) {
 			noEncontroClase.printStackTrace();
 		}
-		
 
 		setBackground(Color.DARK_GRAY);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 576, 354);
 		contentPane = new JPanel();
+		contentPane.setBackground(SystemColor.activeCaption);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
+		// COMBOBOX
+
 		comboBox = new JComboBox<Trabajadores>();
-		Base_datos bs1 = new Base_datos(conexion);
-		this.comboBox.addItem(bs1.leerTrabajador.getString(""));
-		
-		//
-
 		// Como añadir Trabajadores
-		comboBox.addItem(new Trabajadores());
+		// comboBox.addItem(new Trabajadores());
+		newtrabajador();
+		lbd();
 		contentPane.add(comboBox);
-
-		// Como saber que trabajador se ha seleccionado
-		//Trabajadores elegido = (Trabajadores) comboBox.getItemAt(0);
 		comboBox.setBounds(41, 67, 171, 20);
-		contentPane.add(comboBox);
 
+		// label trabajadores
 		JLabel lblTrabajadores = new JLabel("Trabajadores");
 		lblTrabajadores.setFont(new Font("Trebuchet MS", Font.BOLD, 14));
 		lblTrabajadores.setBounds(41, 36, 117, 20);
@@ -105,6 +102,7 @@ public class Principal extends JFrame {
 		buttonmas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// LLamamos al metodo de nuevo trabajador
+				acceso();
 				newtrabajador();
 				opentrabajadorwindow();
 
@@ -117,9 +115,11 @@ public class Principal extends JFrame {
 		lblAadirTrabajador.setBounds(259, 40, 117, 14);
 		contentPane.add(lblAadirTrabajador);
 
+		// contenedor donde colocoar el password
 		passwordField = new JPasswordField();
 		passwordField.setBounds(41, 178, 171, 20);
 		contentPane.add(passwordField);
+
 		// password para cada usuario
 		JLabel lblPassword = new JLabel("Password");
 		lblPassword.setFont(new Font("Trebuchet MS", Font.BOLD, 14));
@@ -135,7 +135,8 @@ public class Principal extends JFrame {
 		JButton btnNewButton = new JButton("  Partes \r\nTrabajo");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Almacen frame = new Almacen();
+				// passwordField
+				Almacen frame = new Almacen(comboBox);
 				frame.setVisible(true);
 			}
 		});
@@ -143,21 +144,55 @@ public class Principal extends JFrame {
 		contentPane.add(btnNewButton);
 	}
 
-
-
 	// definimos que es un nuevo trabajador
 	private void opentrabajadorwindow() {
-		frametrabajador = new Ventanatrabajadores(trabajador, this.comboBox,
-			bs	);
+		frametrabajador = new Ventanatrabajadores(trabajador, this.comboBox, bs);
 		frametrabajador.setVisible(true);
 		frametrabajador.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
 	}
 
+	// creamso metodo para crear un nuevo trabajador
 	public void newtrabajador() {
 		trabajador = new Trabajadores();
-		 bs = new Base_datos(conexion);
+		bs = new Base_datos(conexion);
 	}
-	
 
+	// metodo para añadir datos cd db a combobox
+	public void lbd() {
+		comboBox.removeAllItems();
+		bs = new Base_datos(conexion);
+		bs.leerTrabajador(this.comboBox);
+
+	}
+	//acceso a trabajadores con user and password
+	public static void acceso (){
+		 
+		  
+		    
+		     
+		     String pass = JOptionPane.showInputDialog (null,"curvas cano");
+		    
+		     
+		     do{    
+		     
+		 	if(pass.equals("admin"))
+		 		JOptionPane.showMessageDialog( null, "contraseña correcta");
+		 		
+		 	
+		 	else
+		 		JOptionPane.showMessageDialog( null, "contraseña incorrecta");
+		 	
+		 		
+		  }while(pass.equals("admin")==false);	
+		   
+		 	
+				
+		 	
+				
+				
+		 	
+		
+		
+	}
 }
