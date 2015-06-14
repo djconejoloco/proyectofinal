@@ -119,6 +119,7 @@ public class Principal extends JFrame {
 		passwordField = new JPasswordField();
 		passwordField.setBounds(41, 178, 171, 20);
 		contentPane.add(passwordField);
+	
 
 		// password para cada usuario
 		JLabel lblPassword = new JLabel("Password");
@@ -135,8 +136,9 @@ public class Principal extends JFrame {
 		JButton btnNewButton = new JButton("  Partes \r\nTrabajo");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// passwordField
-				Almacen frame = new Almacen(comboBox);
+				
+				
+				Almacen frame = new Almacen(comboBox, bs);
 				frame.setVisible(true);
 			}
 		});
@@ -165,34 +167,26 @@ public class Principal extends JFrame {
 		bs.leerTrabajador(this.comboBox);
 
 	}
-	//acceso a trabajadores con user and password
-	public static void acceso (){
-		 
-		  
-		    
-		     
-		     String pass = JOptionPane.showInputDialog (null,"curvas cano");
-		    
-		     
-		     do{    
-		     
-		 	if(pass.equals("admin"))
-		 		JOptionPane.showMessageDialog( null, "contraseña correcta");
-		 		
-		 	
-		 	else
-		 		JOptionPane.showMessageDialog( null, "contraseña incorrecta");
-		 	
-		 		
-		  }while(pass.equals("admin")==false);	
-		   
-		 	
-				
-		 	
-				
-				
-		 	
+
+	// acceso a trabajadores con user and password
+	public static void acceso() {
 		
-		
+
+		String pass = "";
+		do {
+
+			pass = JOptionPane.showInputDialog(null, "curvas cano");
+			
+
+			if (pass.equals("admin"))
+				JOptionPane.showMessageDialog(null, "contraseña correcta");
+
+			else
+				JOptionPane.showMessageDialog(null, "contraseña incorrecta");
+
+		} while (pass.equals("admin") == false);
+
 	}
+
+	
 }

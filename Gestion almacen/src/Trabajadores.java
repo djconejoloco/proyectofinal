@@ -10,7 +10,7 @@ public class Trabajadores implements Serializable {
 	private ArrayList<Trabajadores> trabajador1 = new ArrayList<Trabajadores>();
 	private int id;
 
-	// bd
+	
 
 	public Trabajadores() {
 
