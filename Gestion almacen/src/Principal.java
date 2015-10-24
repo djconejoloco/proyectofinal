@@ -28,6 +28,8 @@ import com.mysql.jdbc.Statement;
 
 import java.sql.DriverManager;
 import java.awt.SystemColor;
+import javax.swing.AbstractAction;
+import javax.swing.Action;
 
 public class Principal extends JFrame {
 
@@ -40,6 +42,7 @@ public class Principal extends JFrame {
 	// DB
 	Connection conexion = null;
 	Base_datos bs = new Base_datos(conexion);
+	private final Action action = new SwingAction();
 
 	/**
 	 * Launch the application.
@@ -59,6 +62,7 @@ public class Principal extends JFrame {
 	}
 
 	public Principal() {
+		
 
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
@@ -71,7 +75,7 @@ public class Principal extends JFrame {
 		} catch (ClassNotFoundException noEncontroClase) {
 			noEncontroClase.printStackTrace();
 		}
-
+		
 		setBackground(Color.DARK_GRAY);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 576, 354);
@@ -127,11 +131,6 @@ public class Principal extends JFrame {
 		lblPassword.setBounds(41, 153, 123, 14);
 		contentPane.add(lblPassword);
 
-		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(null);
-		lblNewLabel.setBounds(259, 109, 96, 89);
-		contentPane.add(lblNewLabel);
-
 		// Acceso a partes de trabajo
 		JButton btnNewButton = new JButton("  Partes \r\nTrabajo");
 		btnNewButton.addActionListener(new ActionListener() {
@@ -140,6 +139,7 @@ public class Principal extends JFrame {
 				
 				Almacen frame = new Almacen(comboBox, bs);
 				frame.setVisible(true);
+				lbd();
 			}
 		});
 		btnNewButton.setBounds(412, 67, 123, 131);
@@ -187,6 +187,12 @@ public class Principal extends JFrame {
 		} while (pass.equals("admin") == false);
 
 	}
-
-	
+	private class SwingAction extends AbstractAction {
+		public SwingAction() {
+			putValue(NAME, "SwingAction");
+			putValue(SHORT_DESCRIPTION, "Some short description");
+		}
+		public void actionPerformed(ActionEvent e) {
+		}
+	}
 }
