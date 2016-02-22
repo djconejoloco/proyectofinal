@@ -20,6 +20,7 @@ import java.awt.event.WindowEvent;
 import java.awt.event.ActionEvent;
 import java.sql.Connection;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 import javax.swing.JFileChooser;
@@ -50,14 +51,18 @@ public class Almacen extends JFrame {
 	private Clientes cliente;
 	private Trabajadores ventanatrabajador;
 	private cli ventanaclientes;
-	Principal p = new Principal();
 	private JTextField textField_5;
 	private Base_datos bs;
 	JComboBox<Trabajadores> comboBox;
 	JComboBox<Clientes> client;
+	JComboBox <Base_datos> combopart;
+	
 	private JTable table;
-	private JTextField textField_3;
 
+	
+	Principal p = new Principal();
+	
+	
 	public Almacen(JComboBox<Trabajadores> combo1, Base_datos basedat) {
 		setBackground(new Color(255, 255, 255));
 
@@ -199,7 +204,8 @@ public class Almacen extends JFrame {
 		contentPane.add(client);
 		contentPane.add(button);
 		contentPane.add(scrollPane);
-
+		
+		//boton de borrar clientes 
 		JButton button_1 = new JButton("-");
 		button_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -212,11 +218,6 @@ public class Almacen extends JFrame {
 		button_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		button_1.setBounds(207, 114, 89, 23);
 		contentPane.add(button_1);
-
-		textField_3 = new JTextField();
-		textField_3.setBounds(13, 188, 86, 20);
-		contentPane.add(textField_3);
-		textField_3.setColumns(10);
 
 		JLabel lblNParteTrabajo = new JLabel("N\u00BA Parte trabajo");
 		lblNParteTrabajo.setForeground(new Color(0, 0, 0));
@@ -244,6 +245,10 @@ public class Almacen extends JFrame {
 		});
 		btnNuevoParte.setBounds(120, 187, 176, 23);
 		contentPane.add(btnNuevoParte);
+		
+		combopart = new JComboBox <Base_datos>();
+		combopart.setBounds(13, 188, 89, 20);
+		contentPane.add(combopart);
 
 	}
 
@@ -314,7 +319,7 @@ public class Almacen extends JFrame {
 			Trbajad = Trabcombo.getText();
 			temp1 = textField_1.getText();
 			day1 = textField_2.getText();
-			nparte = textField_3.getText();
+			nparte = (String) combopart.getSelectedItem();
 			num = Integer.parseInt(nparte);
 			tiempo = Integer.parseInt(temp1);
 
@@ -364,17 +369,16 @@ public class Almacen extends JFrame {
 
 	public void limpiar() {
 		textField.setText("");
-		textField_3.setText("");
+		//combopart.;("");
 		textField_1.setText("");
 
 	}
 
 	public void generarparte() {
-		int i = 0;
-		String parte = "";
-		cliente.nparte(i);
+		
+	bs.generarparte();
 
-		// textField_3.getText(i);
+		
 
 	}
 }

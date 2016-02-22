@@ -2,6 +2,7 @@ import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
@@ -18,6 +19,7 @@ public class Base_datos implements Serializable {
 	JComboBox<Trabajadores> combobs;
 	JComboBox<Clientes> cli1;
 	Clientes nuevocliente = new Clientes();
+	
 
 	public Base_datos(Connection conex) {
 		this.conexion = conex;
